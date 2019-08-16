@@ -40,6 +40,11 @@ Otherwise configure gulp and eleventy as you would for any other project.
 1. Generate the site in `/build`
    - `gulp dev` renders and serves
    - `gulp build` build static assets
+1. Edit all the things:
+   - pages: `./src/site/`
+   - templates: `.src/site/_includes`
+   - site information: `./src/site/_data`
+   - local css: `./src/scss`
 
 ## 4. Adding Visual Framework components
 
@@ -67,8 +72,11 @@ your site.
 
 You'll find a `vf-sample` component already placed in `./src/components`
 
+## 5. Deploying
 
-## 4. Footnotes
+- to come
+
+## 6. Footnotes
 
 - Why `yarn` and not `npm`?
   For the particular structure of the Visual Framework components, Yarn is considerably
