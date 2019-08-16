@@ -14,7 +14,7 @@ as node+Eleventy facilitates more flexible solutions and frees a Ruby dependency
 
 There are two methods you can use:
 
-1. Use the interactive npm template [RECOMMENDED]
+1. ~~Use the interactive npm template [RECOMMENDED]~~ Not yet implemented
     - If you don't have npm, [install it](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
     - The [`create-vf-eleventy`](https://github.com/visual-framework/create-vf-eleventy) project allows you to interactively create a new site by typing<br/> `npm init @visual-framework/vf-eleventy your-new-site-name ebi-eleventy-boilerplate`
     - Follow the prompts
