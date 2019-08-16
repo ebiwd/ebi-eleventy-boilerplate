@@ -1,0 +1,11 @@
+[
+  {
+    "url": "/",
+    "title": "",
+    "index": " Eleventy VF 13 + 20 alphaThis allows using 11ty static site generator with direct access Visual Framework code☝️ that also means dynamic building just CSS JS need Quickstart npm init @visualframework/vfeleventy yournewsitename ebieleventyboilerplateThis will install new ebieleventyboilerplate folder named yournewsitenameThen follow onscreen prompts links below develop configureLonger install above too easy have questions Read this guide What get generatoraccess component systemComponent installation add can use npm/Yarn manually either case &#39;ll need rerun gulp dev ensure fully loadedinstallation: yarn @visualframework/vflogoupdating: upgradeinteractive latestManual installation customisationDownload patternCopy /src/components/vfcomponentnameAdd your own local component custom VFcompatible /src/components your sitegulp vfcomponent&#39;ll find vfsample there &#39;ve used below:Code: {% render @vfsample {text: some text} %}Returns: &#39;m sample text"
+  },
+  {
+    "url": "/posts/sample-post/",
+    "title": "I&#39;m an update",
+    "index": "&#39;m some content"
+  },]
