@@ -7,38 +7,124 @@
     {# <link rel="stylesheet" media="all" href="https://dev.assets.emblstatic.net/vf/develop/css/styles.css" /> #}
     <link rel="stylesheet" media="all" href="{{ '/css/styles.css' | url }}" />
     <link rel="stylesheet" media="all" href="{{ '/css/app.css' | url }}" />
-    <title>{{ title or (renderData and renderData.title) or siteConfig.siteInformation.title}}</title>
+    <title>{{ title or (renderData and renderData.title) or siteConfig.siteInformation.title}} | EMBL-EBI</title>
+
+    <meta name="description" content="EMBL-EBI Blank boilerplate page" /><!-- Describe what this page is about -->
+    <meta name="keywords" content="bioinformatics, europe, institute" /><!-- 3 to 10 keywords about the content of this page (not the whole project) -->
+    <meta name="author" content="EMBL-EBI" /><!-- Your [project-name] here -->
+    <meta name="HandheldFriendly" content="true" />
+    <meta name="MobileOptimized" content="width" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#70BDBD" /> <!-- Android Chrome mobile browser tab color -->
+    <!-- Get suggested SEO and social metatags at:
+         https://www.ebi.ac.uk/style-lab/websites/patterns/meta-copy.html -->
+
+    <!-- Add information on the life cycle of this page -->
+    <meta name="ebi:owner" content="John Doe" /> <!-- Who should be contacted about changes -->
+    <meta name="ebi:review-cycle" content="30" /> <!-- In days, how often should the content be reviewed -->
+    <meta name="ebi:last-review" content="2015-12-20" /> <!-- The last time the content was reviewed -->
+    <meta name="ebi:expiry" content="2016-01-20" /> <!-- When this content is no longer relevant -->
+
+    <!-- If you link to any other sites frequently, consider optimising performance with a DNS prefetch -->
+    <link rel="dns-prefetch" href="//www.ebi.ac.uk" />
+
+    <!-- If you have custom icon, replace these as appropriate.
+         You can generate them at realfavicongenerator.net -->
+    <link rel="icon" type="image/x-icon" href="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/favicon.ico" />
+    <link rel="icon" type="image/png" href="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/android-chrome-192x192.png" /> <!-- Android (192px) -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/apple-icon-114x114.png" /> <!-- For iPhone 4 Retina display (114px) -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/apple-icon-72x72.png" /> <!-- For iPad (72px) -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/apple-icon-144x144.png" /> <!-- For iPad retinat (144px) -->
+    <link rel="apple-touch-icon-precomposed" href="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/apple-icon-57x57.png" /> <!-- For iPhone (57px) -->
+    <link rel="mask-icon" href="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/safari-pinned-tab.svg" color="#ffffff" /> <!-- Safari icon for pinned tab -->
+    <meta name="msapplication-TileColor" content="#2b5797" /> <!-- MS Icons -->
+    <meta name="msapplication-TileImage" content="//ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/images/logos/EMBL-EBI/favicons/mstile-144x144.png" />
+
+    <!-- CSS: implied media=all -->
+    <!-- CSS concatenated and minified via ant build script-->
+
+    <link rel="stylesheet" href="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/css/ebi-global.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="https://dev.ebi.emblstatic.net/web_guidelines/EBI-Icon-fonts/v1.2/fonts.css" type="text/css" media="all" />
+
+    <!-- Use this CSS file for any custom styling -->
+    <!--
+      <link rel="stylesheet" href="css/custom.css" type="text/css" media="all" />
+    -->
+
+    <!-- If you have a custom header image or colour -->
+    <!--
+    <meta name="ebi:masthead-color" content="#000" />
+    <meta name="ebi:masthead-image" content="//www.ebi.ac.uk/web_guidelines/EBI-Framework/images/backgrounds/embl-ebi-background.jpg" />
+    -->
+
+    <!-- you can replace this with theme-[projectname].css. See http://www.ebi.ac.uk/web/style/colour for details of how to do this -->
+    <!-- also inform ES so we can host your colour palette file -->
+    <!-- <link rel="stylesheet" href="https://ebi.emblstatic.net/web_guidelines/EBI-Framework/v1.3/css/theme-embl-petrol.css" type="text/css" media="all" /> -->
+    <!-- end CSS-->
+
+
   </head>
-  <body class="{{ bodyClass }} vf-body">
-    <header class="vf-global-header">
+  <body class="{{ bodyClass }}">
+    <header id="masthead-black-bar" class="clearfix masthead-black-bar">
+    </header>
 
-      <div class="vf-global-header__inner">
-
-        {% render '@vf-logo--responsive', {href:  'https://visual-framework.github.io/vf-welcome/' | url, sreen_reader_text: 'Visual Framework 2.0' } %}
-        {# <a href="{{ '/' | url }}" class="vf-link | vf-global-header__site-name">{{ siteConfig.siteInformation.title }}</a> #}
-
-        <nav class="vf-navigation vf-navigation--global">
-          <ul class="vf-navigation__list | vf-list--inline">
-            <li class="vf-navigation__item">
-              <a href="https://visual-framework.github.io/vf-welcome/" class="vf-navigation__link">About the Visual Framework</a>
-            </li>
-            <li class="vf-navigation__item">
-              <a href="https://visual-framework.github.io/vf-welcome/documentation" class="vf-navigation__link">Documentation</a>
-            </li>
-            <li class="vf-navigation__item">
-              <a href="https://discord.gg/XHAvkUX" class="vf-navigation__link">Help, chat</a>
+    <div id="content">
+      <div data-sticky-container>
+        <header id="masthead" class="masthead" data-sticky data-sticky-on="large" data-top-anchor="content:top" data-btm-anchor="content:bottom">
+          <div class="masthead-inner row">
+            <!-- local-title -->
+            <div class="columns medium-12" id="local-title">
+              <h1><a href="../../" title="Back to [service-name] homepage">EBI Framework</a></h1>
+            </div>
+            <!-- /local-title -->
+            <!-- local-nav -->
+            <nav >
+              <ul id="local-nav" class="dropdown menu float-left" data-description="navigational">
+                <li><a href="../../">Overview</a></li>
+                <li><a data-open="modal-download">Download</a></li>
+                <li><a href="#">Support <i class="icon icon-generic" data-icon="x"></i></a></li>
+              </ul>
+            </nav>
+            <!-- /local-nav -->
+          </div>
+        </header>
+      </div>
+      <!-- Suggested layout containers -->
+      <section id="main-content-area" class="row" role="main">
+        <!-- Your menu structure should make a breadcrumb redundant, but if a breadcrump is needed uncomment the below -->
+        <nav aria-label="You are here:" role="navigation">
+          <ul class="breadcrumbs columns">
+            <li><a href="../../">EBI Framework</a></li>
+            <li><a href="../">Sample pages</a></li>
+            <li>
+              <span class="show-for-sr">Current: </span> Blank boilerplate
             </li>
           </ul>
         </nav>
 
-      </div>
+        <div class="columns">
+          <div class="vf-grid">
+            <div>
+              {{ content | safe }}
+            </div>
+          </div>
+        </div>
 
-    </header>
-    <div class="vf-grid">
-      <div>
-        {{ content | safe }}
-      </div>
+      </section>
+      <!-- Optional local footer (insert citation / project-specific copyright / etc here -->
+      <!--
+      <footer id="local-footer" class="local-footer" role="local-footer">
+        <div class="row">
+          <span class="reference">How to reference this page: ...</span>
+        </div>
+      </footer>
+      -->
+      <!-- End optional local footer -->
     </div>
+    <!-- End suggested layout containers / #content -->
+
+
     {% include "footer.njk" %}
   </body>
 </html>

@@ -1,18 +1,25 @@
-# Eleventy boilerplate for Visual Framework 2.0
+# Eleventy boilerplate for Visual Framework 1.3
 
 This allows you to use the [11ty](https://www.11ty.io) static site generator
-with direct access to Visual Framework 2.0 components.
+with direct access to Visual Framework 1.3 and 2.0 components.
 
-## 1. Creating a new project powered by vf-eleventy
+This is possible as the VF 2.0 is [no-conflict with VF 1.3](https://visual-framework.github.io/vf-welcome/).
+
+**This is in active development as of 2019.08.16**
+
+- We recommend using this over [EBI-Boilerplate-Jekyll](https://github.com/ebiwd/EBI-Boilerplate-Jekyll)
+as node+Eleventy facilitates more flexible solutions and frees a Ruby dependency.
+
+## 1. Creating a new project powered by ebi-eleventy-boilerplate
 
 There are two methods you can use:
 
 1. Use the interactive npm template [RECOMMENDED]
     - If you don't have npm, [install it](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-    - The [`create-vf-eleventy`](https://github.com/visual-framework/create-vf-eleventy) project allows you to interactively create a new site by typing<br/> `npm init @visual-framework/vf-eleventy your-new-site-name`
+    - The [`create-vf-eleventy`](https://github.com/visual-framework/create-vf-eleventy) project allows you to interactively create a new site by typing<br/> `npm init @visual-framework/vf-eleventy your-new-site-name ebi-eleventy-boilerplate`
     - Follow the prompts
 1. The GitHub template
-    - Click the "[Use this template](https://help.github.com/en/articles/creating-a-repository-from-a-template)" method; quick url: https://github.com/visual-framework/vf-eleventy/generate
+    - Click the "[Use this template](https://help.github.com/en/articles/creating-a-repository-from-a-template)" method; quick url: https://github.com/visual-framework/ebi-eleventy-boilerplate/generate
     - Follow the prompts and then clone the new project to your local machine
 
 ## 2. Configuring your new site
