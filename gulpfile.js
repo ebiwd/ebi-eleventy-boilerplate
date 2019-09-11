@@ -33,9 +33,6 @@ const componentPath = path.resolve('.', global.vfComponentPath).replace(/\\/g, '
 const componentDirectories = config.vfConfig.vfComponentDirectories || ['vf-core-components'];
 const buildDestionation = path.resolve('.', global.vfBuildDestination).replace(/\\/g, '/');
 
-// Some Gulp tasks live in their own files, for the sake of clarity.
-require('require-dir')('./gulp-tasks');
-
 // HACK: in vf-core@beta.2 a bug was introduced where it would erronously try to generate a version from the component template, this works around it by renaming the file
 // this can be removed once beta.3 is released
 
