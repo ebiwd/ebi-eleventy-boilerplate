@@ -14,9 +14,9 @@ as node+Eleventy facilitates more flexible solutions and frees a Ruby dependency
 
 There are two methods you can use:
 
-1. ~~Use the interactive npm template [RECOMMENDED]~~ Not yet implemented
+1. ~~Use the interactive yarn template [RECOMMENDED]~~ Not yet implemented
     - If you don't have npm, [install it](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
-    - The [`create-vf-eleventy`](https://github.com/visual-framework/create-vf-eleventy) project allows you to interactively create a new site by typing<br/> `npm init @visual-framework/vf-eleventy your-new-site-name ebi-eleventy-boilerplate`
+    - The [`create-vf-eleventy`](https://github.com/visual-framework/create-vf-eleventy) project allows you to interactively create a new site by typing<br/> `yarn create @visual-framework/vf-eleventy your-new-site-name ebi-eleventy-boilerplate`
     - Follow the prompts
 1. The GitHub template
     - Click the "[Use this template](https://help.github.com/en/articles/creating-a-repository-from-a-template)" method; quick url: https://github.com/visual-framework/ebi-eleventy-boilerplate/generate
@@ -48,7 +48,7 @@ Otherwise configure gulp and eleventy as you would for any other project.
 
 ## 4. Adding Visual Framework components
 
-To add a component you can use npm/Yarn or install it manually.
+To add a component you can use Yarn or install it manually.
 
 In either case you'll need to re-run `gulp dev` to ensure the component is fully loaded.
 
@@ -56,7 +56,7 @@ In either case you'll need to re-run `gulp dev` to ensure the component is fully
 
 - installation: `yarn add @visual-framework/vf-logo`
 - updating components: `yarn upgrade-interactive --latest`
-  - alias: `npm run update-components`
+  - alias: `yarn run update-components`
 
 ### Manual installation for customisation
 
