@@ -1,4 +1,5 @@
 const gulp  = require('gulp');
+var   fractalBuildMode;
 
 // -----------------------------------------------------------------------------
 // Configuration
@@ -22,40 +23,20 @@ const gulp  = require('gulp');
 const fs = require('fs');
 const path = require('path');
 const config = JSON.parse(fs.readFileSync('./package.json'));
+const vfCoreConfig = JSON.parse(fs.readFileSync(require.resolve('@visual-framework/vf-core/package.json')));
 config.vfConfig = config.vfConfig || [];
 global.vfName = config.vfConfig.vfName || "Visual Framework 2.0";
 global.vfNamespace = config.vfConfig.vfNamespace || "vf-";
 global.vfComponentPath = config.vfConfig.vfComponentPath || path.resolve('.', __dirname + '/components');
 global.vfBuildDestination = config.vfConfig.vfBuildDestination || __dirname + '/temp/build-files';
 global.vfThemePath = config.vfConfig.vfThemePath || './tools/vf-frctl-theme';
-global.vfVersion = config.version || 'not-specified';
+global.vfVersion = vfCoreConfig.version || 'not-specified';
 const componentPath = path.resolve('.', global.vfComponentPath).replace(/\\/g, '/');
 const componentDirectories = config.vfConfig.vfComponentDirectories || ['vf-core-components'];
 const buildDestionation = path.resolve('.', global.vfBuildDestination).replace(/\\/g, '/');
 
-// HACK: in vf-core@beta.2 a bug was introduced where it would erronously try to generate a version from the component template, this works around it by renaming the file
-// this can be removed once beta.3 is released
-
-// part 1: unset hack on init
-let hackComponentGeneratorPath = './node_modules/@visual-framework/vf-core/tools/component-generator/templates/';
-fs.rename(hackComponentGeneratorPath+'_ignored.json', hackComponentGeneratorPath+'_package.json', function (err) {
-  if (err) { /* file has already been moved */ }
-});
-
-// part 2. use hack when requested
-gulp.task('component-bug-hack', function(done) {
-  let hackComponentGeneratorPath = './node_modules/@visual-framework/vf-core/tools/component-generator/templates/';
-  fs.rename(hackComponentGeneratorPath+'_package.json', hackComponentGeneratorPath+'_ignored.json', function (err) {
-    if (err) { /* file has already been moved */ }
-  });
-  done();
-});
-
 // Tasks to build/run vf-core component system
 require('./node_modules/\@visual-framework/vf-core/tools/gulp-tasks/_gulp_rollup.js')(gulp, path, componentPath, componentDirectories, buildDestionation);
-
-// Eleventy config
-process.argv.push('--config=eleventy.js');
 
 // Watch folders for changess
 gulp.task('watch', function() {
@@ -63,25 +44,27 @@ gulp.task('watch', function() {
   gulp.watch(['./src/components/**/*.js'], gulp.parallel('vf-scripts'));
 });
 
-gulp.task('elventy-set-to-serve', function(done) {
-  // Since we're not using the 11ty command line directly, we need to set the
-  // `--serve` param manually
+gulp.task('set-to-development', function(done) {
   process.argv.push('--serve');
   process.env.ELEVENTY_ENV = 'development';
   fractalBuildMode = 'server';
   done();
 });
 
-gulp.task('elventy-set-to-build', function(done) {
-  // Since we're not using the 11ty command line directly, we need to set the
-  // `--serve` param manually
+gulp.task('set-to-static-build', function(done) {
   process.argv.push('--quiet');
   process.env.ELEVENTY_ENV = 'production';
+  fractalBuildMode = 'build';
+  // todo: switch build mode once vf-core beta.4 is out
+  // fractalBuildMode = 'dataobject'; // run fractal in server mode as there's no need for static html assets
   done();
 });
 
-// Run Eleventy, but only after we wait for Fractal to start
+// Run eleventy, but only after we wait for fractal to bootstrap
+// @todo: consider if this could/should be two parallel gulp tasks
 gulp.task('eleventy', function(done) {
+  let elev;
+  process.argv.push('--config=eleventy.js'); // Eleventy config
   global.vfBuilderPath   = __dirname + '/build/vf-core-components';
   global.vfDocsPath      = __dirname + '/node_modules/\@visual-framework/vf-eleventy--extensions/fractal/docs';
   global.vfOpenBrowser   = false; // if you want to open a browser tab for the component library
@@ -89,27 +72,48 @@ gulp.task('eleventy', function(done) {
 
   function fractalReadyCallback(fractal) {
     global.fractal = fractal; // save fractal globally
-    global.eleventy = require('@11ty/eleventy/cmd.js');
-    done();
+    elev = require('./node_modules/\@visual-framework/vf-eleventy--extensions/11ty/cmd.js');
+    console.log('Done building Fractal');
+    buildEleventy();
   }
+
+  function buildEleventy() {
+    if (process.env.ELEVENTY_ENV == 'production') {
+      elev.write().then(function() {
+        console.log('Done building 11ty');
+        done();
+      });
+    }
+    if (process.env.ELEVENTY_ENV == 'development') {
+      elev.watch().then(function() {
+        elev.serve('3000');
+        // console.log('Done building 11ty');
+        done();
+      });
+    }
+  }
+
+});
+
+// Eleventy doesn't always finish promptly, this ensures we exit gulp "cleanly"
+gulp.task('manual-exit', function(done) {
+  done()(process.exit());
 });
 
 // Let's build this sucker.
-let fractalBuildMode = 'build';
 gulp.task('build', gulp.series(
-  'component-bug-hack',
   'vf-clean',
   gulp.parallel('vf-css','vf-scripts','vf-component-assets'),
-  'elventy-set-to-build',
-  'eleventy'
+  'set-to-static-build',
+  'eleventy',
+  'manual-exit'
 ));
 
 // Build and watch things during dev
 gulp.task('dev', gulp.series(
-  'component-bug-hack',
   'vf-clean',
   gulp.parallel('vf-css','vf-scripts','vf-component-assets'),
-  'elventy-set-to-serve',
+  'set-to-development',
   'eleventy',
-  'watch'
+  gulp.parallel('watch','vf-watch')
 ));
