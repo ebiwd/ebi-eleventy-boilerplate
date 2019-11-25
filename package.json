@@ -1,6 +1,6 @@
 {
   "name": "@ebiwd/ebi-eleventy-boilerplate",
-  "version": "2.0.0-alpha.6",
+  "version": "2.0.0-alpha.12",
   "description": "Build a site with Visual Framework components using the the Eleventy templating engine.",
   "repository": {
     "type": "git",
