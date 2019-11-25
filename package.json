@@ -10,8 +10,8 @@
   "author": "Ken Hawkins <ken.hawkins@embl.de> (https://www.embl.de/aboutus/communication_outreach/)",
   "main": "gulpfile.js",
   "vfConfig": {
-    "vfName": "VF Boilerplate for Eleventy",
-    "vfNamespace": "vfeleventy-",
+    "vfName": "EBI Boilerplate for Eleventy",
+    "vfNamespace": "ebieleventy-",
     "vfComponentPath": "./src/components",
     "vfBuildDestination": "./build",
     "vfThemePath": "@frctl/mandelbrot"
