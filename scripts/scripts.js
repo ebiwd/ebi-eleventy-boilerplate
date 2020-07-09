@@ -21,8 +21,6 @@
  * Clear the cooke. This is mostly a development tool.
  */
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function vfBannerReset(vfBannerCookieNameAndVersion) {
   vfBannerSetCookie(vfBannerCookieNameAndVersion, false);
 }
@@ -32,7 +30,7 @@ function vfBannerReset(vfBannerCookieNameAndVersion) {
 
 
 function vfBannerConfirm(banner, vfBannerCookieNameAndVersion) {
-  banner.classList += " vf-u-display-none";
+  banner.classList.add('vf-u-display-none');
 
   if (vfBannerCookieNameAndVersion !== 'null') {
     vfBannerSetCookie(vfBannerCookieNameAndVersion, true);
@@ -116,8 +114,8 @@ function vfBanner(scope) {
  * Takes a banner object and creates the necesary html markup, js events, and inserts
  * @example vfBannerInsert()
  * @param {object} [banner]  -
- * @param {object} [scope] - the html scope to process, optional, defaults to `document`
  * @param {string} [bannerId] - the id of the target div, `data-vf-js-banner-id="1"`
+ * @param {object} [scope] - the html scope to process, optional, defaults to `document`
  */
 
 
@@ -158,7 +156,7 @@ function vfBannerInsert(banner, bannerId, scope) {
         var newButton = document.createElement('button');
         newButton.innerHTML = button;
         newButton = newButton.firstChild;
-        newButton.classList = 'vf-button vf-button--primary';
+        newButton.classList.add('vf-button', 'vf-button--primary');
         generatedBannerHtml += newButton.outerHTML;
       }
     });
@@ -167,7 +165,15 @@ function vfBannerInsert(banner, bannerId, scope) {
 
 
   if (banner.vfJsBannerButtonText && (banner.vfJsBannerState === 'blocking' || banner.vfJsBannerState === 'dismissible')) {
-    generatedBannerHtml += '<button class="vf-button vf-button--secondary" data-vf-js-banner-close>' + banner.vfJsBannerButtonText + '</button>';
+    if (banner.vfJsBannerButtonTheme == 'primary') {
+      generatedBannerHtml += '<button class="vf-button vf-button--primary" data-vf-js-banner-close>' + banner.vfJsBannerButtonText + '</button>';
+    } else if (banner.vfJsBannerButtonTheme == 'secondary') {
+      generatedBannerHtml += '<button class="vf-button vf-button--secondary" data-vf-js-banner-close>' + banner.vfJsBannerButtonText + '</button>';
+    } else if (banner.vfJsBannerButtonTheme == 'tertiary') {
+      generatedBannerHtml += '<button class="vf-button vf-button--tertary" data-vf-js-banner-close>' + banner.vfJsBannerButtonText + '</button>';
+    } else {
+      generatedBannerHtml += '<button class="vf-button vf-button--secondary" data-vf-js-banner-close>' + banner.vfJsBannerButtonText + '</button>';
+    }
   }
 
   generatedBannerHtml += '</div>'; // set the html of the banner
@@ -185,25 +191,25 @@ function vfBannerInsert(banner, bannerId, scope) {
 
 
   if (banner.vfJsBannerState === 'blocking' || banner.vfJsBannerState === 'dismissible') {
-    // On click: close banner, pass any cooke name (or `null`)
+    // On click: close banner, pass any cookie name (or `null`)
     if (banner.vfJsBannerButtonText) {
-      targetBanner.addEventListener('click', function () {
+      targetBanner.querySelectorAll('[data-vf-js-banner-close]')[0].addEventListener('click', function () {
         vfBannerConfirm(targetBanner, vfBannerCookieNameAndVersion);
       }, false);
     }
   }
 
-  if (vfBannerCookieNameAndVersion != "null") {
+  if (vfBannerCookieNameAndVersion != 'null') {
     // if banner has been previously accepted
     if (vfBannerGetCookie(vfBannerCookieNameAndVersion) === 'true') {
       // banner has been accepted, close
-      targetBanner.classList += " vf-u-display-none"; // exit, nothng more to do
+      targetBanner.classList.add('vf-u-display-none'); // exit, nothng more to do
 
       return;
     } // if banner is marked as auto-accept, set as read
 
 
-    if (banner.vfJsBannerAutoAccept == "true") {
+    if (banner.vfJsBannerAutoAccept == 'true') {
       if (banner.vfJsBannerState === 'blocking' || banner.vfJsBannerState === 'dismissible') {
         vfBannerSetCookie(vfBannerCookieNameAndVersion, true);
       }
@@ -254,38 +260,45 @@ function vfMastheadSetStyle() {
 
     var cBrightness = 255; // default to above the threshold
 
-    if (regHex.test(hexcode)) {
-      var cutHex = function cutHex(h) {
-        return h.charAt(0) == "#" ? h.substring(1, 7) : h;
-      };
+    var modalAlertClasses = ['vf-masthead--with-title-block'];
+    var modal = document.querySelector('.vf-masthead');
 
-      var hexToR = function hexToR(h) {
-        return parseInt(cutHex(h).substring(0, 2), 16);
-      };
+    if (modal.classList.contains(modalAlertClasses)) {} else {
+      if (regHex.test(hexcode)) {
+        var cutHex = function cutHex(h) {
+          return h.charAt(0) == "#" ? h.substring(1, 7) : h;
+        };
 
-      var hexToG = function hexToG(h) {
-        return parseInt(cutHex(h).substring(2, 4), 16);
-      };
+        var hexToR = function hexToR(h) {
+          return parseInt(cutHex(h).substring(0, 2), 16);
+        };
 
-      var hexToB = function hexToB(h) {
-        return parseInt(cutHex(h).substring(4, 6), 16);
-      };
+        var hexToG = function hexToG(h) {
+          return parseInt(cutHex(h).substring(2, 4), 16);
+        };
 
-      var getCorrectTextColor = function getCorrectTextColor(hex) {
-        var hRed = hexToR(hex);
-        var hGreen = hexToG(hex);
-        var hBlue = hexToB(hex);
-        return (hRed * 299 + hGreen * 587 + hBlue * 114) / 1000;
-      };
+        var hexToB = function hexToB(h) {
+          return parseInt(cutHex(h).substring(4, 6), 16);
+        };
 
-      if (!bannerBGC) return;
-      bannerBGC = bannerBGC.trim();
-      cBrightness = getCorrectTextColor(bannerBGC);
+        var getCorrectTextColor = function getCorrectTextColor(hex) {
+          var hRed = hexToR(hex);
+          var hGreen = hexToG(hex);
+          var hBlue = hexToB(hex);
+          return (hRed * 299 + hGreen * 587 + hBlue * 114) / 1000;
+        };
 
-      if (cBrightness > threshold) {
-        el.style.setProperty('--vf-masthead__color--foreground', "#000000");
-      } else if (cBrightness < threshold) {
-        el.style.setProperty('--vf-masthead__color--foreground', "#FFFFFF");
+        if (!bannerBGC) return;
+        bannerBGC = bannerBGC.trim();
+        cBrightness = getCorrectTextColor(bannerBGC);
+
+        if (cBrightness > threshold) {
+          el.style.setProperty('--vf-masthead__color--foreground-default', "#000000");
+        } else if (cBrightness < threshold) {
+          el.style.setProperty('--vf-masthead__color--foreground-default', "#FFFFFF");
+        }
+      } else {
+        el.style.setProperty('--vf-masthead__bg-image', "none");
       }
     }
   }
@@ -399,137 +412,15 @@ function vfTabs(scope) {
   });
 } // vf-form__float-labels
 
-/*
- * A note on the Visual Framework and JavaScript:
- * The VF is primairly a CSS framework so we've included only a minimal amount
- * of JS in components and it's fully optional (just remove the JavaScript selectors
- * i.e. `data-vf-js-tabs`). So if you'd rather use Angular or Bootstrap for your
- * tabs, the Visual Framework won't get in the way.
- *
- * When querying the DOM for elements that should be acted on:
- * 🚫 Don't: const tabs = document.querySelectorAll('.vf-tabs');
- * ✅ Do:    const tabs = document.querySelectorAll('[data-vf-js-tabs]');
- *
- * This allows users who would prefer not to have this JS engange on an element
- * to drop `data-vf-js-component` and still maintain CSS styling.
- */
-
 /**
- * The global function for this component
- * @example vfcomponentName(firstPassedVar)
- * @param {string} [firstPassedVar]  - An option to be passed
- */
+  * The global function for this component
+  * @example vfcomponentName(firstPassedVar)
+  * @param {string} [firstPassedVar]  - An option to be passed
+  */
 
 
 function vfFormFloatLabels() {
-  function addFloatLabel(self) {
-    var label = document.createElement('label');
-    var id = 'label-' + new Date().getTime();
-    label.setAttribute('id', id);
-    self.dataset.inputOf = id;
-    self.parentNode.insertBefore(label, self);
-    label.innerHTML = self.getAttribute('placeholder'); // not namespaced as this is a HTML-native attribute
-
-    label.classList.add('vf-form__label');
-  }
-
-  function floatLabelKeyUp(event) {
-    var self = event.target;
-
-    if (!self.dataset.inputOf && !!self.value) {
-      addFloatLabel(self);
-    } else {
-      var label = document.querySelector('#' + self.dataset.inputOf);
-
-      if (!self.value && !!label) {
-        setTimeout(function () {
-          label.parentNode.removeChild(label);
-          delete self.dataset.inputOf;
-        }, 10);
-      }
-    }
-  }
-
-  function wrapElement(element) {
-    var parent = element.parentNode;
-    var sibling = element.nextElementSibling;
-    var div = document.createElement('div');
-    div.appendChild(element);
-
-    if (!sibling) {
-      parent.appendChild(div);
-    } else {
-      parent.insertBefore(div, sibling);
-    }
-  }
-
-  var floatLabels = document.querySelectorAll('[data-vf-js-form-floatlabel]');
-
-  if (floatLabels.length === 0) {
-    // console.warn('There are no `[data-vf-js-form-floatlabel]` to process; exiting');
-    return false;
-  }
-
-  var inputs = [].slice.call(floatLabels);
-
-  if (typeof inputs != "undefined") {
-    for (var i in inputs) {
-      if (_typeof(inputs[i]) == "object") {
-        // prevent execution on array functions
-        wrapElement(inputs[i]);
-
-        if (!!inputs[i].value) {
-          addFloatLabel(inputs[i]);
-        }
-
-        inputs[i].classList.add('vf-form__floatlabel'); // .vf-form__floatlabel
-
-        inputs[i].addEventListener('keyup', floatLabelKeyUp);
-      }
-    }
-  }
-
-  function checkEmail(str) {
-    var errorElem = document.getElementById('error'); // email regex
-
-    var re = /^(([^<>()[\]\\.,;:\s@\']+(\.[^<>()[\]\\.,;:\s@\']+)*)|(\'.+\'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-    if (!re.test(str)) {
-      if (document.getElementById('email-error')) {// do nothing
-      } else {
-        var el = document.getElementById('email-form'),
-            elChild = document.createElement('div'),
-            parent = elChild;
-        elChild.innerHTML = '<div id="email-error" class="mt-b-form__message mt-b-form__message--inline-error"><p>Your email is incorrect</p></div>';
-      }
-
-      el.parentNode.appendChild(elChild);
-    } else {
-      var elem = document.getElementById('email-error');
-      elem.parentNode.removeChild(elem);
-    }
-  }
-
-  function checkForm() {
-    var canSubmit = true;
-    var emailcheck = /^(([^<>()[\]\\.,;:\s@\']+(\.[^<>()[\]\\.,;:\s@\']+)*)|(\'.+\'))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    var emailField = document.getElementById('username').value;
-    var passwordField = document.forms['loginform'].querySelector('.form__input--password').value;
-
-    if (!emailcheck.test(emailField)) {
-      canSubmit = false;
-    }
-
-    if (passwordField.length < 5) {
-      canSubmit = false;
-    }
-
-    if (canSubmit) {
-      document.forms['loginform'].querySelector('.mt-b-button__item').disabled = false;
-    } else {
-      document.forms['loginform'].querySelector('.mt-b-button__item').disabled = true;
-    }
-  }
+  console.log('vfFormFloatLabels is no longer required as of 1.0.0-beta.4, you can remove it from your scripts.js');
 } // embl-content-hub-loader__html-imports
 // A trimmed down version of
 // https://github.com/AshleyScirra/html-imports-polyfill/blob/master/htmlimports.js
@@ -664,28 +555,249 @@ function emblConditionalEdit() {
  * and adds `.embl-coditional-edit__enabled` to display the edit links
  * @param {string} [url] - the url to check for an enabling param
  * @param {element} [element] - the scopped element to be processed
+ * @param {string} [referrer] - what part of the page is asking for a check, we pass this to avoid recursion
  */
 
 
-function emblConditionalEditDetectParam(url, element) {
+function emblConditionalEditDetectParam(url, element, referrer) {
   var captured = /embl-conditional-edit=([^&]+)/.exec(url);
 
-  if (captured == null) {
+  if (captured == null && referrer != 'iframe') {
     // value not found
     // also try against any parent iframe url
     if (window.self !== window.top) {
-      emblConditionalEditDetectParam(parent.window.location, element);
+      console.log(url, parent.window.location.href);
+      emblConditionalEditDetectParam(parent.window.location.href, element, 'iframe');
     }
 
     return;
   }
+
+  captured = captured || false; // avoid null
 
   captured = captured[1];
 
   if (captured == '1' || captured == 'enabled' || captured == 'true') {
     element.className += ' ' + 'embl-coditional-edit__enabled';
   }
-} // embl-content-hub-loader__fetch
+} // embl-notifications
+
+/**
+  * After a notifications has been chosen, build it and insert into the document
+  * @example emblNotificationsInject(notification)
+  * @param {object} [message] - An object to be show on a page
+  */
+
+
+function emblNotificationsInject(message) {
+  var output = document.createElement('div'); // @todo:
+  // - add support in contentHub for extra button text, link
+  // preperation
+
+  message.body = message.body.replace(/<[/]?[p>]+>/g, ' '); // no <p> tags allowed in inline messages, preserve a space to not colide words
+  // add vf-link to link
+
+  message.body = message.body.replace('<a href=', '<a class="vf-banner__link" href='); // we might need a more clever regex, but this should also avoid links that aleady have a class
+  // Learn more link is conditionally shown
+
+  if (message.field_notification_link) {
+    message.body = "".concat(message.body, " <a class=\"vf-banner__link\" href=\"").concat(message.field_notification_link, "\">Learn more</a>");
+  } // custom button text
+
+
+  message.field_notification_button_text = message.field_notification_button_text || 'Close notice'; // notification memory and cookie options
+
+  if (message.field_notification_cookie == "True") {
+    output.dataset.vfJsBannerCookieName = message.cookieName;
+    output.dataset.vfJsBannerCookieVersion = message.cookieVersion;
+
+    if (message.field_notification_auto_accept == "True") {
+      output.dataset.vfJsBannerAutoAccept = true;
+    }
+  }
+
+  if (message.field_notification_position == 'fixed') {
+    output.classList.add('vf-banner', 'vf-banner--fixed', 'vf-banner--bottom', 'vf-banner--notice');
+    output.dataset.vfJsBanner = true;
+    output.dataset.vfJsBannerState = message.field_notification_presentation;
+    output.dataset.vfJsBannerButtonText = message.field_notification_button_text; // These features are not yet supported by the notification content type in the EMBL contentHub
+    // output.dataset.vfJsBannerExtraButton = "<a href='#'>Optional button</a><a target='_blank' href='#'>New tab button</a>";
+
+    output.innerHTML = "\n      <div class=\"vf-banner__content | vf-grid\" data-vf-js-banner-text>\n        <p class=\"vf-text vf-text-body--2\">".concat(message.body, "</p>\n      </div>");
+    var target = document.body.firstChild;
+    target.parentNode.prepend(output);
+    vfBanner();
+  } else if (message.field_notification_position == 'inline') {
+    output.classList.add('vf-grid'); // we wrap in vf-grid for layout
+
+    output.innerHTML = "\n      <div class=\"vf-banner vf-banner--phase | vf-content\">\n        <div class=\"vf-banner__content\">\n          <p class=\"vf-banner__text\">".concat(message.body, "</p>\n        </div>\n      </div>"); // insert after `vf-header` or at after `vf-body`
+    // @todo: add support for where "inline" message should be shown
+    // @todo: don't rely on the presence of vf-header to show inline notification, maybe <div data-notifications-go-here>
+
+    var _target = document.getElementsByClassName('vf-header');
+
+    if (_target.length > 0) {
+      _target[0].parentNode.insertBefore(output, _target[0].nextSibling);
+    } else {
+      // if no vf-header, show at vf-body
+      // @thought: we might instead make this show as "top"
+      var _target2 = document.getElementsByClassName('vf-body');
+
+      if (_target2.length > 0) {
+        // output.classList.add('vf-u-grid--reset');
+        _target2[0].prepend(output);
+      } // if still no success, we soft fail
+
+    }
+  } else if (message.field_notification_position == 'top') {
+    output.classList.add('vf-banner', 'vf-banner--fixed', 'vf-banner--top', 'vf-banner--phase');
+    output.dataset.vfJsBanner = true;
+    output.dataset.vfJsBannerState = message.field_notification_presentation;
+    output.dataset.vfJsBannerButtonText = message.field_notification_button_text; // These features are not yet supported by the notification content type in the EMBL contentHub
+    // output.dataset.vfJsBannerExtraButton = "<a href='#'>Optional button</a><a target='_blank' href='#'>New tab button</a>";
+
+    output.innerHTML = "\n      <div class=\"vf-banner__content\" data-vf-js-banner-text>\n        <p class=\"vf-banner__text\">".concat(message.body, "</p>\n      </div>");
+    var _target3 = document.body.firstChild;
+
+    _target3.parentNode.prepend(output);
+
+    vfBanner();
+  } // console.log('emblNotifications, showing:', message);
+
+}
+/**
+  * The global function for this component
+  * Note: if you use embl-content-hub-loader, it will automatically invoke emblNotifications
+  * @example emblNotifications(currentHost, currentPath)
+  * @param {string} [currentHost] - a host url www.embl.org
+  * @param {string} [currentPath] - a path /people/name
+  */
+
+
+function emblNotifications(currentHost, currentPath) {
+  currentHost = currentHost || window.location.hostname;
+  currentPath = currentPath || window.location.pathname; // don't treat `wwwdev` as distinct from `www`
+
+  currentHost = currentHost.replace(/wwwdev/g, "www"); // console.log('emblNotifications','Checking for notifcaitons.');
+  // console.log('emblNotifications, Current url info:', currentHost + "," + currentPath);
+  // Process each message against a URLs
+
+  function matchNotification(message, targetUrl) {
+    var matchFound = false;
+
+    if (message.hasBeenShown == true) {
+      // console.warn('emblNotifications', 'This message has already been displayed on the page.')
+      return;
+    } // console.log('emblNotifications, targetUrl:', targetUrl);
+    // console.log('emblNotifications, matching:', currentHost+currentPath);
+    // Is there an exact match?
+
+
+    matchFound = compareUrls(currentHost + currentPath, targetUrl); // Handle wildcard matches like `/about/*`
+
+    if (targetUrl.slice(-1) == '*') {
+      matchFound = compareUrls(currentHost + currentPath, targetUrl, true);
+    } // if a match has been made on the current url path, show the message
+
+
+    if (matchFound == true) {
+      // console.log('emblNotifications: MATCH FOUND 🎉', targetUrl, currentHost, currentPath);
+      message.hasBeenShown = true;
+      emblNotificationsInject(message);
+    }
+  } // Handle string comparisons for URLs
+
+
+  function compareUrls(url1, url2, isWildCard) {
+    isWildCard = isWildCard || false; // we ignore case
+    // we could probably optimise by moving this higher in the logic, but it's more maintainable to have it here
+
+    url1 = url1.toLowerCase();
+    url2 = url2.toLowerCase(); // don't allow matches to end in `*`
+
+    if (url1.slice(-1) == '*') url1 = url1.substring(0, url1.length - 1);
+    if (url2.slice(-1) == '*') url2 = url2.substring(0, url2.length - 1); // don't allow matches to end in `/`
+
+    if (url1.slice(-1) == '/') url1 = url1.substring(0, url1.length - 1);
+    if (url2.slice(-1) == '/') url2 = url2.substring(0, url2.length - 1); // console.log('emblNotifications, comparing:', url1 + "," + url2);
+
+    if (url1 == url2) {
+      return true;
+    } else if (isWildCard) {
+      // console.log('emblNotifications, wildcard comparison:', url1, url2)
+      if (url1.indexOf(url2) == 0) {
+        // only success if match found from beginning of string
+        // we only support wildcards on the right side
+        // console.log('emblNotifications: WILDCARD MATCH FOUND 🎉');
+        return true;
+      }
+    }
+
+    return false;
+  } // Process each message, and its URL fragmenets
+
+
+  function processNotifications(messages) {
+    // console.log('emblNotifications', messages);
+    // Process each message
+    for (var index = 0; index < messages.length; index++) {
+      var currentMessage = messages[index]; // track if a message has already been show on the page
+      // we want to be sure a message isn't accidently shown twice
+
+      currentMessage.hasBeenShown = false; // Process the URLs for each path in a message
+
+      var currentUrls = currentMessage.field_notification_urls.split(',');
+
+      for (var indexUrls = 0; indexUrls < currentUrls.length; indexUrls++) {
+        var url = currentUrls[indexUrls].trim();
+        matchNotification(currentMessage, url); // pass the notification and active url to compare
+      }
+    }
+  } // Utility to fetch a file, process the JSON
+
+
+  function loadRemoteNotifications(file) {
+    // console.log('emblNotifications','Opening URL :' + file);
+    if (window.XMLHttpRequest) {
+      var xmlhttp = new XMLHttpRequest();
+    }
+
+    xmlhttp.open("GET", file, true);
+
+    xmlhttp.onload = function (e) {
+      if (xmlhttp.readyState === 4) {
+        if (xmlhttp.status === 200) {
+          // eval(xmlhttp.responseText);
+          // var m = m || ''; // make sure the message isn't null
+          processNotifications(eval(xmlhttp.responseText));
+        } else {
+          console.error(xmlhttp.statusText);
+        }
+      }
+    };
+
+    xmlhttp.onerror = function (e) {
+      console.error(xmlhttp.statusText);
+    };
+
+    xmlhttp.send(null);
+  } // Bootstrap the message fetching
+  // If on dev, reference dev server
+
+
+  if (window.location.hostname.indexOf('wwwdev.') === 0) {
+    loadRemoteNotifications('https://wwwdev.embl.org/api/v1/notifications?_format=json&source=contenthub');
+  } else if (window.location.hostname.indexOf('localhost') === 0) {
+    loadRemoteNotifications('https://wwwdev.embl.org/api/v1/notifications?_format=json&source=contenthub');
+  } else {
+    loadRemoteNotifications('https://www.embl.org/api/v1/notifications?_format=json&source=contenthub');
+  }
+} // Add this to your ./components/vf-component-rollup/scripts.js
+// import { emblNotifications } from '../components/raw/embl-notifications/embl-notifications.js';
+// And invoke it
+// Note: if you use embl-content-hub-loader, it will automatically invoke emblNotifications
+// emblNotifications();
+// embl-content-hub-loader__fetch
 
 /**
  * Fetch html links from content.embl.org
@@ -728,7 +840,7 @@ function emblContentHubFetch() {
 
       if (emblContentHubShowTimers) {
         console.time('timer for import ' + linkPosition);
-      } // await the load of the html import from the polyfill 
+      } // await the load of the html import from the polyfill
       // note: we use polyfill in all cases; see https://github.com/visual-framework/vf-core/issues/508
 
 
@@ -738,10 +850,16 @@ function emblContentHubFetch() {
 
 
   function emblContentHubSignalFinished() {
+    // @todo, shouldn't require the body element
     document.querySelectorAll('body')[0].classList.add('embl-content-hub-loaded'); // if the JS to run embl-conditional-edit is present, run it now
 
     if (typeof emblConditionalEdit === "function") {
       emblConditionalEdit();
+    } // if the JS to run embl-notifications is present, run it now
+
+
+    if (typeof emblNotifications === "function") {
+      emblNotifications();
     }
   } // Dispatch load to the pollyfill
 
@@ -778,7 +896,7 @@ function emblContentHubFetch() {
       exportedContent = exportedContent.firstElementChild;
       exportedContent.classList.add('vf-content-hub-html');
       exportedContent.classList.add('vf-content-hub-html__derived-div');
-    } else if (exportedContent.childNodes.length == 3) {
+    } else if (exportedContent.childNodes.length <= 3) {
       // if there are three or fewer child nodes this is likely a no-results reply
       // We'll still inject the content from the contentHub along with any passed "no matches" text
       var noContentMessage = targetLink.getAttribute('data-embl-js-content-hub-loader-no-content');
@@ -926,11 +1044,25 @@ emblBreadcrumbRelated.classList.add('vf-breadcrumbs__list', 'vf-breadcrumbs__lis
 
 var primaryBreadcrumb;
 /**
+ * Look up a breadcrumb by its uuid and return the entry
+ * @example formatBreadcrumb(uuid)
+ * @param {string} [uuid]  - the uuid of a term
+ */
+
+function emblBreadcumbLookupByUuid(uuid) {
+  // console.log('emblBreadcumbLookupByUuid',uuid);
+  if (emblTaxonomy.terms[uuid]) {
+    // console.log('emblBreadcumbLookupByUuid',emblTaxonomy.terms[uuid]);
+    return emblTaxonomy.terms[uuid];
+  }
+}
+/**
  * Take any appropriate actions depending on present metaTags
  * @example emblBreadcrumbsLookup()
  * @param {object} [metaProperties] - if you do not have meta tags on the page,
  *                                    you can explicitly pass options
  */
+
 
 function emblBreadcrumbsLookup(metaProperties) {
   var emblBreadcrumbTarget = document.querySelectorAll('[data-embl-js-breadcrumbs-lookup]');
@@ -1303,12 +1435,12 @@ function emblBreadcrumbAppend(breadcrumbTarget, termName, facet, type) {
     // if a term has not been passed, attempt to use the primary term's parent information
     // @todo: add a flag to explicitly "dontLookup" or "doLookup"
 
-    if (termName == "notSet") {
+    if (termName == 'notSet') {
+      termName = ''; // we'll either find a positive termObject or not show anything
+      // console.log('here',primaryBreadcrumb.parents)
+
       if (primaryBreadcrumb.parents[facet]) {
         termName = primaryBreadcrumb.parents[facet];
-      } else {
-        // No matches? Then don't show anything.
-        termName = '';
       }
     } // if using a `string/NameOfThing` value, not accordingly
 
@@ -1319,9 +1451,16 @@ function emblBreadcrumbAppend(breadcrumbTarget, termName, facet, type) {
     } // scan through all terms and find a match, if any
 
 
-    function scanTaxonomyForTerm(termName) {
-      // @todo: prefer UUID matches first
-      // We prefer profiles
+    function emblBreadcumbLookup(termName) {
+      // @todo: if a UUID meta property is set, use that
+      // if it's UUID match we use that
+      termObject = emblBreadcumbLookupByUuid(termName);
+
+      if (typeof termObject != 'undefined') {
+        return; //exit
+      } // We prefer profiles
+
+
       Array.prototype.forEach.call(Object.keys(emblTaxonomy.terms), function (termId) {
         var term = emblTaxonomy.terms[termId];
 
@@ -1373,11 +1512,11 @@ function emblBreadcrumbAppend(breadcrumbTarget, termName, facet, type) {
           }
         });
       }
-    } // don't scan for junk matches 
+    } // don't scan for junk matches
 
 
     if (termName != 'notSet' && termName != '' && termName != 'none') {
-      scanTaxonomyForTerm(termName);
+      emblBreadcumbLookup(termName);
     } // Validation and protection
     // we never want to return undefined
 

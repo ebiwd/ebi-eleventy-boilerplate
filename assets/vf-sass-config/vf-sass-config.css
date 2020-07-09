@@ -1,4 +1,17 @@
 :root {
+  --page-grid-gap: 16px;
+  --embl-grid-module--prime: 200px;
+  --embl-grid-spacing-normaliser: 6px;
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --page-grid-gap: 30px;
+  }
+}
+
+/* stylelint-disable */
+:root {
   --vf-color--green: #18974c;
   --vf-color--green--darkest: #0a5032;
   --vf-color--green--dark: #007b53;
@@ -31,10 +44,12 @@
 
 :root {
   --vf-ui-color--black: #000000;
-  --vf-ui-color--grey: #f3f3f3;
-  --vf-ui-color--grey--light: #d8d8d8;
+  --vf-ui-color--grey: #d8d8d8;
+  --vf-ui-color--grey--light: #f3f3f3;
   --vf-ui-color--yellow: #fffadc;
   --vf-ui-color--red: #d32f2f;
   --vf-ui-color--white: #ffffff;
   --vf-ui-color--off-white: #fafafa;
 }
+
+/* stylelint-enable */

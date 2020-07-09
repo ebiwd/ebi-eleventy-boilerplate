@@ -1,3 +1,4 @@
+/* stylelint-disable */
 :root {
   --vf-color--green: #18974c;
   --vf-color--green--darkest: #0a5032;
@@ -31,17 +32,18 @@
 
 :root {
   --vf-ui-color--black: #000000;
-  --vf-ui-color--grey: #f3f3f3;
-  --vf-ui-color--grey--light: #d8d8d8;
+  --vf-ui-color--grey: #d8d8d8;
+  --vf-ui-color--grey--light: #f3f3f3;
   --vf-ui-color--yellow: #fffadc;
   --vf-ui-color--red: #d32f2f;
   --vf-ui-color--white: #ffffff;
   --vf-ui-color--off-white: #fafafa;
 }
 
+/* stylelint-enable */
 /*!
  * Component: @visual-framework/embl-logo
- * Version: 1.0.2
+ * Version: 1.0.4
  * Location: components/embl-logo
  */
 .embl-logo {
@@ -60,13 +62,14 @@
 }
 
 .embl-logo--extreme {
-  height: 11vw;
-  max-height: 96px;
-  min-height: 32px;
+  height: 32px;
+  -webkit-transition: height 400ms ease-in;
+  transition: height 400ms ease-in;
 }
 
-@media (min-width: 768px) {
+@media (min-width: 1025px) {
   .embl-logo--extreme {
     background-image: url("../assets/embl-logo/assets/logo.svg");
+    height: 96px;
   }
 }

@@ -10,83 +10,179 @@ try {
 var parentTemplate = null;
 if(runtime.contextOrFrameLookup(context, frame, "context")) {
 var t_1;
-t_1 = runtime.contextOrFrameLookup(context, frame, "context");
-frame.set("card", t_1, true);
+t_1 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "context")),"card_href");
+frame.set("card_href", t_1, true);
 if(frame.topLevel) {
-context.setVariable("card", t_1);
+context.setVariable("card_href", t_1);
 }
 if(frame.topLevel) {
-context.addExport("card", t_1);
-}
-;
+context.addExport("card_href", t_1);
 }
 output += "\n";
-if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "card")),"card_href")) {
 var t_2;
-t_2 = "a";
-frame.set("tags", t_2, true);
+t_2 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "context")),"card_title");
+frame.set("card_title", t_2, true);
 if(frame.topLevel) {
-context.setVariable("tags", t_2);
+context.setVariable("card_title", t_2);
 }
 if(frame.topLevel) {
-context.addExport("tags", t_2);
+context.addExport("card_title", t_2);
 }
-;
-}
-else {
 var t_3;
-t_3 = "div";
-frame.set("tags", t_3, true);
+t_3 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "context")),"card_subtitle");
+frame.set("card_subtitle", t_3, true);
 if(frame.topLevel) {
-context.setVariable("tags", t_3);
+context.setVariable("card_subtitle", t_3);
 }
 if(frame.topLevel) {
-context.addExport("tags", t_3);
+context.addExport("card_subtitle", t_3);
 }
-;
+var t_4;
+t_4 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "context")),"card_text");
+frame.set("card_text", t_4, true);
+if(frame.topLevel) {
+context.setVariable("card_text", t_4);
 }
-output += "\n\n";
-output += "\n<";
-output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "tags"), env.opts.autoescape);
+if(frame.topLevel) {
+context.addExport("card_text", t_4);
+}
+var t_5;
+t_5 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "context")),"card_image");
+frame.set("card_image", t_5, true);
+if(frame.topLevel) {
+context.setVariable("card_image", t_5);
+}
+if(frame.topLevel) {
+context.addExport("card_image", t_5);
+}
+var t_6;
+t_6 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "context")),"card_image__alt");
+frame.set("card_image__alt", t_6, true);
+if(frame.topLevel) {
+context.setVariable("card_image__alt", t_6);
+}
+if(frame.topLevel) {
+context.addExport("card_image__alt", t_6);
+}
 output += "\n";
+var t_7;
+t_7 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "context")),"theme");
+frame.set("theme", t_7, true);
+if(frame.topLevel) {
+context.setVariable("theme", t_7);
+}
+if(frame.topLevel) {
+context.addExport("theme", t_7);
+}
+var t_8;
+t_8 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "context")),"variant");
+frame.set("variant", t_8, true);
+if(frame.topLevel) {
+context.setVariable("variant", t_8);
+}
+if(frame.topLevel) {
+context.addExport("variant", t_8);
+}
+output += "\n";
+var t_9;
+t_9 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "context")),"id");
+frame.set("id", t_9, true);
+if(frame.topLevel) {
+context.setVariable("id", t_9);
+}
+if(frame.topLevel) {
+context.addExport("id", t_9);
+}
+var t_10;
+t_10 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "context")),"modifiers");
+frame.set("modifiers", t_10, true);
+if(frame.topLevel) {
+context.setVariable("modifiers", t_10);
+}
+if(frame.topLevel) {
+context.addExport("modifiers", t_10);
+}
+var t_11;
+t_11 = runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "context")),"override_class");
+frame.set("override_class", t_11, true);
+if(frame.topLevel) {
+context.setVariable("override_class", t_11);
+}
+if(frame.topLevel) {
+context.addExport("override_class", t_11);
+}
+;
+}
+output += "\n<article\n";
 if(runtime.contextOrFrameLookup(context, frame, "tags") == "a") {
-output += " href=\"";
-output += runtime.suppressValue((runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "card")),"card_href")?runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "card")),"card_href"):"#"), env.opts.autoescape);
+output += "href=\"";
+output += runtime.suppressValue((runtime.contextOrFrameLookup(context, frame, "card_href")?runtime.contextOrFrameLookup(context, frame, "card_href"):"#"), env.opts.autoescape);
 output += "\"";
 ;
 }
-output += "\n  ";
-if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "card")),"id")) {
+if(runtime.contextOrFrameLookup(context, frame, "id")) {
 output += " id=\"";
-output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "card")),"id"), env.opts.autoescape);
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "id"), env.opts.autoescape);
 output += "\"";
 ;
 }
-output += "\n  ";
 output += "\n  class=\"vf-card";
-if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "card")),"card_href")) {
-output += " vf-card--is-link";
+if(runtime.contextOrFrameLookup(context, frame, "theme")) {
+output += " vf-card-theme--";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "theme"), env.opts.autoescape);
 ;
 }
-if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "card")),"modifier")) {
-output += " ";
-output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "card")),"modifier"), env.opts.autoescape);
+if(runtime.contextOrFrameLookup(context, frame, "variant")) {
+output += " vf-card--";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "variant"), env.opts.autoescape);
 ;
 }
-if(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "card")),"override_class")) {
+if(runtime.contextOrFrameLookup(context, frame, "modifier")) {
 output += " | ";
-output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "card")),"override_class"), env.opts.autoescape);
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "modifier"), env.opts.autoescape);
 ;
 }
-output += "\">\n  <img src=\"";
-output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "card")),"card_image"), env.opts.autoescape);
-output += "\" alt=\"\" class=\"vf-card__image\">\n  <div class=\"vf-card__content\">\n    <h3 class=\"vf-card__title\">\n      ";
-output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "card")),"card_title"), env.opts.autoescape);
-output += "\n    </h3>\n    <p class=\"vf-card__text\">\n      ";
-output += runtime.suppressValue(runtime.memberLookup((runtime.contextOrFrameLookup(context, frame, "card")),"card_text"), env.opts.autoescape);
-output += "\n    </p>\n  </div>\n</";
-output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "tags"), env.opts.autoescape);
-output += ">\n";
+if(runtime.contextOrFrameLookup(context, frame, "override_class")) {
+output += " | ";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "override_class"), env.opts.autoescape);
+;
+}
+output += "\">\n\n";
+if(runtime.contextOrFrameLookup(context, frame, "card_image")) {
+output += "  <img src=\"";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "card_image"), env.opts.autoescape);
+output += "\" alt=\"";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "card_image__alt"), env.opts.autoescape);
+output += "\" class=\"vf-card__image\">\n";
+;
+}
+output += "\n  <div class=\"vf-card__content\">\n\n    <h3 class=\"vf-card__title\">";
+if(runtime.contextOrFrameLookup(context, frame, "card_href")) {
+output += "<a class=\"vf-card__link\" href=\"";
+output += runtime.suppressValue((runtime.contextOrFrameLookup(context, frame, "card_href")?runtime.contextOrFrameLookup(context, frame, "card_href"):"#"), env.opts.autoescape);
+output += "\">";
+;
+}
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "card_title"), env.opts.autoescape);
+if(runtime.contextOrFrameLookup(context, frame, "card_href")) {
+output += "</a>";
+;
+}
+output += "</h3>\n\n";
+if(runtime.contextOrFrameLookup(context, frame, "card_subtitle")) {
+output += "    <p class=\"vf-card__subtitle\" role=\"doc-subtitle\">";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "card_subtitle"), env.opts.autoescape);
+output += "</p>\n";
+;
+}
+output += "\n";
+if(runtime.contextOrFrameLookup(context, frame, "card_text")) {
+output += "    <p class=\"vf-card__text\">";
+output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "card_text"), env.opts.autoescape);
+output += "</p>\n";
+;
+}
+output += "  </div>\n\n</article>\n";
 if(parentTemplate) {
 parentTemplate.rootRenderFunc(env, context, frame, runtime, cb);
 } else {
