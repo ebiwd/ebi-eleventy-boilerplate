@@ -2,10 +2,10 @@
 subtitle: No homepage, yet.
 date: 2018-08-22 12:24:50
 layout: layouts/base.njk
-templateEngineOverride: njk, md
+templateEngineOverride: njk
 ---
 
-{% render '@vf-intro', {"vf_intro_phase": "alpha", "vf_intro_heading": siteConfig.siteInformation.title,
+{% render '@vf-intro', {"vf_intro_phase": "alpha", "vf_intro_badge": "", "vf_intro_heading": siteConfig.siteInformation.title,
   "vf_intro_lede": siteConfig.siteInformation.short_description,
   "vf_intro_text": [
     "☝️ that also means dynamic building of just the CSS and JS you need."
@@ -23,11 +23,11 @@ templateEngineOverride: njk, md
 
   ```
 
-      npm init @visual-framework/vf-eleventy your-new-site-name ebi-eleventy-boilerplate
+      yarn init @visual-framework/vf-eleventy your-new-site-name ebi-eleventy-boilerplate
 
   ```
 
-  This will install a new [`ebi-eleventy-boilerplate`](https://github.com/visual-framework/ebi-eleventy-boilerplate/) to a folder named `your-new-site-name`.
+  This will install a new [`ebi-eleventy-boilerplate`](https://github.com/visual-framework/ebi-eleventy-boilerplate/) to a folder named <span class=" vf-u-text--nowrap">`your-new-site-name`</span>.
 
   Then follow the onscreen prompts and links below to develop and configure.
 
@@ -41,12 +41,14 @@ templateEngineOverride: njk, md
 </section>
 
 
-<section class="vf-intro | embl-grid embl-grid--has-centered-content">
+<section class="embl-grid embl-grid--has-centered-content">
 
 <div>
   <!-- empty -->
 </div>
 <div class="vf-content">
+
+{% markdown %}
 
 ## What you get
 
@@ -76,12 +78,16 @@ your site.
 
 You'll find a `vf-sample` component there, we've used it below:
 
+{% endmarkdown %}
+
 <div class="vf-box">
 {% verbatim %}
 Code: {% render "@vf-sample", {text: "with some text"} %}
 {% endverbatim %}
 
+<p>
 Returns: {% render "@vf-sample", {text: "with some text"} %}
+</p>
 </div>
 
 </div>
