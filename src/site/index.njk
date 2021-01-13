@@ -5,12 +5,11 @@ layout: layouts/base.njk
 templateEngineOverride: njk
 ---
 
-{% render '@vf-intro', {"vf_intro_phase": "alpha", "vf_intro_badge": "", "vf_intro_heading": siteConfig.siteInformation.title,
-  "vf_intro_lede": siteConfig.siteInformation.short_description,
-  "vf_intro_text": [
-    "☝️ that also means dynamic building of just the CSS and JS you need."
-  ]
-} %}
+{% set context = homepageIntro %}
+{% set vf_intro_heading = siteConfig.siteInformation.title %}
+{% set vf_intro_lede = siteConfig.siteInformation.short_description %}
+
+{% include containers.intro %}
 
 <section class="embl-grid embl-grid--has-centered-content">
   <div>
