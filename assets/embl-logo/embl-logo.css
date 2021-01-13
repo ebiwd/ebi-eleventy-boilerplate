@@ -31,6 +31,16 @@
 }
 
 :root {
+  --vf-theme--primary: #3b6fb6;
+  --vf-theme--primary--dark: #193f90;
+  --vf-theme--secondary: #18974c;
+  --vf-theme--secondary--dark: #007b53;
+  --vf-theme--tertiary: #54585a;
+  --vf-theme--quaternary: #f4c61f;
+  --vf-theme--quinary: #d0d0ce;
+}
+
+:root {
   --vf-ui-color--black: #000000;
   --vf-ui-color--grey: #d8d8d8;
   --vf-ui-color--grey--light: #f3f3f3;
@@ -43,33 +53,24 @@
 /* stylelint-enable */
 /*!
  * Component: @visual-framework/embl-logo
- * Version: 1.0.4
+ * Version: 1.1.0
  * Location: components/embl-logo
  */
 .embl-logo {
   background-image: url("../assets/embl-logo/assets/logo-medium.svg");
   background-repeat: no-repeat;
-  background-size: auto 100%;
-  color: #000000;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-flex: 1;
       -ms-flex: 1;
           flex: 1;
-  height: 32px;
+  height: 2rem;
   text-decoration: none;
 }
-
-.embl-logo--extreme {
-  height: 32px;
-  -webkit-transition: height 400ms ease-in;
-  transition: height 400ms ease-in;
-}
-
 @media (min-width: 1025px) {
-  .embl-logo--extreme {
+  .embl-logo {
     background-image: url("../assets/embl-logo/assets/logo.svg");
-    height: 96px;
+    height: 3rem;
   }
 }

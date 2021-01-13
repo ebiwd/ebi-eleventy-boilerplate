@@ -31,6 +31,16 @@
 }
 
 :root {
+  --vf-theme--primary: #3b6fb6;
+  --vf-theme--primary--dark: #193f90;
+  --vf-theme--secondary: #18974c;
+  --vf-theme--secondary--dark: #007b53;
+  --vf-theme--tertiary: #54585a;
+  --vf-theme--quaternary: #f4c61f;
+  --vf-theme--quinary: #d0d0ce;
+}
+
+:root {
   --vf-ui-color--black: #000000;
   --vf-ui-color--grey: #d8d8d8;
   --vf-ui-color--grey--light: #f3f3f3;
@@ -43,14 +53,14 @@
 /* stylelint-enable */
 /*!
  * Component: @visual-framework/embl-content-hub-loader
- * Version: 1.0.5
- * Location: components/embl-content-hub-loader
+ * Version: 1.0.8
+ * Location: components/undefined
  */
 .embl-grid > .vf-content-hub-html,
 .embl-grid > .embl-content-hub-html,
 .vf-grid > .vf-content-hub-html,
 .vf-grid > .embl-content-hub-html {
-  grid-column: 1 / -1;
+  grid-column: 1/-1;
 }
 
 .vf-body > .vf-content-hub-html,

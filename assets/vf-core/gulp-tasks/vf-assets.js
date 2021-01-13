@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 /**
  * Expose vf-assets gulp task as a JS module
@@ -36,6 +36,14 @@ module.exports = function(gulp, path, componentPath, buildDestionation) {
   gulp.task('vf-component-assets:js', function() {
     return gulp
       .src([componentPath + '/vf-core-components/**/*.js', componentPath + '/**/*.js'])
+      .pipe(gulp.dest(buildDestionation + '/assets'));
+  });
+
+  // copy all the files in a component
+  // note: you shouldn't use this in combination with the other vf-commponent-assets tasks (redundant)
+  gulp.task('vf-component-assets:everything', function() {
+    return gulp
+      .src([componentPath + '/vf-core-components/**/*.*', componentPath + '/**/*.*'])
       .pipe(gulp.dest(buildDestionation + '/assets'));
   });
 
