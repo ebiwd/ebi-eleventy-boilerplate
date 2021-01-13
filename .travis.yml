@@ -3,6 +3,7 @@ dist: trusty
 language: node_js
 node_js:
   - 12
+cache: npm
 
 stages:
   - deploy
@@ -18,9 +19,6 @@ deploy:
   keep-history: true
   target-branch: gh-pages
   local-dir: build
-  cache:
-    paths:
-      - node_modules
   on:
     branch:
       - master
