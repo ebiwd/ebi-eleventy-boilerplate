@@ -53,8 +53,8 @@
 /* stylelint-enable */
 /*!
  * Component: @visual-framework/vf-footer
- * Version: 1.1.0
- * Location: components/vf-footer
+ * Version: 1.1.1
+ * Location: components/undefined
  */
 .vf-footer {
   background-color: #54585a;
@@ -105,7 +105,7 @@
 .vf-footer__inner {
   grid-column: main;
   margin: 0 auto;
-  max-width: 81.25em;
+  max-width: 80em;
   padding: 0;
 }
 
@@ -275,6 +275,6 @@
 
   .vf-footer__inner {
     margin: 0 auto;
-    max-width: 81.25em;
+    max-width: 80em;
   }
 }

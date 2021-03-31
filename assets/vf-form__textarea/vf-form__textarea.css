@@ -53,14 +53,14 @@
 /* stylelint-enable */
 /*!
  * Component: @visual-framework/vf-form__textarea
- * Version: 1.0.2
- * Location: components/vf-form/vf-form__textarea
+ * Version: 3.0.0-alpha.0
+ * Location: components/undefined
  */
 .vf-form__textarea {
   font-family: "IBM Plex Sans", Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  font-size: 19px;
   font-weight: 400;
-  line-height: 1.71;
+  line-height: 1.421;
   margin: 0 0 16px 0;
   margin: 0 0 var(--vf-text-margin--bottom, 16px) 0;
   /* stylelint-disable */
@@ -68,17 +68,19 @@
   -moz-appearance: none;
        appearance: none;
   /* stylelint-enable */
-  border: 3px solid #f3f3f3;
+  border: 2px solid #707372;
   border-radius: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   display: block;
-  padding: 12px 22px;
+  padding: 0.5rem;
   position: relative;
-  top: 24px;
   width: 100%;
 }
 .vf-form__textarea:hover, .vf-form__textarea:focus {
   border-color: #54585a;
+  -webkit-box-shadow: 0 0 0 0.0625rem #54585a;
+          box-shadow: 0 0 0 0.0625rem #54585a;
+  color: #000000;
   outline: 0;
 }

@@ -1,7 +1,7 @@
 /**
- * Precompiled Nunjucks template: vf-stack--sm.njk
+ * Precompiled Nunjucks template: vf-stack--1600.njk
  */
-(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["vf-stack--sm"] = (function() {
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["vf-stack--1600"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = 0;
 var colno = 0;

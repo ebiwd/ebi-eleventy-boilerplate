@@ -1,7 +1,7 @@
 /**
- * Precompiled Nunjucks template: vf-stack--1400.njk
+ * Precompiled Nunjucks template: vf-stack--1200.njk
  */
-(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["vf-stack--1400"] = (function() {
+(function() {(window.nunjucksPrecompiled = window.nunjucksPrecompiled || {})["vf-stack--1200"] = (function() {
 function root(env, context, frame, runtime, cb) {
 var lineno = 0;
 var colno = 0;
@@ -64,7 +64,7 @@ output += runtime.suppressValue(runtime.contextOrFrameLookup(context, frame, "st
 output += ";\"";
 ;
 }
-output += ">\ndddd\n";
+output += ">\n\n";
 env.getExtension("render")["run"](context,"@vf-box--normal-primary", function(t_6,t_5) {
 if(t_6) { cb(t_6); return; }
 output += runtime.suppressValue(t_5, true && env.opts.autoescape);
